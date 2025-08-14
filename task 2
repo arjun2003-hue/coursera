@@ -1,0 +1,22 @@
+# File: emotion_app.py
+
+from ibm_watson import NaturalLanguageUnderstandingV1
+from ibm_watson.natural_language_understanding_v1 import Features, EmotionOptions
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+
+# IBM Watson credentials
+api_key = "YOUR_API_KEY"
+url = "YOUR_URL"
+
+authenticator = IAMAuthenticator(api_key)
+nlu = NaturalLanguageUnderstandingV1(version='2023-08-01', authenticator=authenticator)
+nlu.set_service_url(url)
+
+def emotion_predictor(text):
+    if not text:
+        return {"error": "No text provided"}
+    response = nlu.analyze(text=text, features=Features(emotion=EmotionOptions())).get_result()
+    return response['emotion']['document']['emotion']
+
+# Example
+print(emotion_predictor("I am very excited and happy today!"))
