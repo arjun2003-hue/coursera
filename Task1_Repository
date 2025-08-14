@@ -1,0 +1,15 @@
+import subprocess
+import os
+
+# URL of the repository you want to clone
+repo_url = "https://github.com/ARJUNarjun2003-hue.git"
+
+# Destination folder (optional)
+destination_folder = "Task1_Repository"
+
+# Clone the repository
+try:
+    subprocess.run(["git", "clone", repo_url, destination_folder], check=True)
+    print(f"Repository cloned successfully into '{destination_folder}'")
+except subprocess.CalledProcessError as e:
+    print("Error cloning repository:", e)
